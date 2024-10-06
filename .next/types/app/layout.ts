@@ -1,4 +1,4 @@
-// File: /home/ubuntu/skidz-next/src/app/layout.js
+// File: C:\Users\uic15\Desktop\NEXT JS\skidz\src\app\layout.js
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
