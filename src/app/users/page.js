@@ -22,7 +22,7 @@ const Users = () => {
       <h1>Users List</h1>
       <ul>
         {users.map((user) => (
-          <li key={user.id}>{user.name}</li> // Adjust based on your user object structure
+          <li key={user.id}>{user.username}</li> // Adjust based on your user object structure
         ))}
       </ul>
     </div>
