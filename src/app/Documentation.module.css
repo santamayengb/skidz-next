@@ -40,7 +40,7 @@
     overflow-x: auto;
   }
   
-  code {
+  .codeBlock code {
     font-family: "Courier New", Courier, monospace;
   }
   

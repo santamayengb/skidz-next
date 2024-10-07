@@ -1,12 +1,13 @@
-import React from 'react';
-import styles from './Documentation.module.css';
+import React from "react";
+import styles from "./Documentation.module.css";
 
 export default function Home() {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Next.js Server Setup in AWS</h1>
       <p className={styles.description}>
-        Follow these steps to set up your Next.js server on AWS:
+        Follow these detailed step-by-step instructions for setting up a Next.js
+        server on AWS with MySQL and phpMyAdmin.
       </p>
 
       <div className={styles.stepSection}>
@@ -18,42 +19,53 @@ export default function Home() {
 
       <div className={styles.stepSection}>
         <h2>2. Install Required Dependencies</h2>
+        <p>Install essential build tools:</p>
         <pre className={styles.codeBlock}>
-          <code>
-            {`sudo apt install build-essential
-sudo apt install nginx`}
-          </code>
+          <code>sudo apt install build-essential</code>
+        </pre>
+        <p>Install Nginx (for reverse proxy):</p>
+        <pre className={styles.codeBlock}>
+          <code>sudo apt install nginx</code>
         </pre>
       </div>
 
       <div className={styles.stepSection}>
         <h2>3. Install Node.js</h2>
         <pre className={styles.codeBlock}>
-          <code>
-            {`sudo apt install nodejs
-sudo apt install npm`}
-          </code>
+          <code>sudo apt install nodejs</code>
+          <br />
+          <code>sudo apt install npm</code>
         </pre>
       </div>
 
       <div className={styles.stepSection}>
         <h2>4. Create Next.js Project</h2>
+        <p>Navigate to the directory where you want to create the project:</p>
         <pre className={styles.codeBlock}>
-          <code>
-            {`cd /path/to/your/project-directory
-npx create-next-app@latest`}
-          </code>
+          <code>cd /path/to/your/project-directory</code>
+        </pre>
+        <p>Create a new Next.js app:</p>
+        <pre className={styles.codeBlock}>
+          <code>npx create-next-app@latest</code>
         </pre>
       </div>
 
       <div className={styles.stepSection}>
         <h2>5. Install MySQL and phpMyAdmin</h2>
+        <p>Install MySQL server:</p>
         <pre className={styles.codeBlock}>
-          <code>
-            {`sudo apt install mysql-server
-sudo mysql_secure_installation  // Set root password as root
-sudo apt install phpmyadmin`}
-          </code>
+          <code>sudo apt install mysql-server</code>
+        </pre>
+        <p>Secure MySQL installation and set root password:</p>
+        <pre className={styles.codeBlock}>
+          <code>sudo mysql_secure_installation</code>
+        </pre>
+        <p>
+          Set MySQL root password to <strong>root</strong>.
+        </p>
+        <p>Install phpMyAdmin:</p>
+        <pre className={styles.codeBlock}>
+          <code>sudo apt install phpmyadmin</code>
         </pre>
       </div>
 
@@ -63,11 +75,9 @@ sudo apt install phpmyadmin`}
         <pre className={styles.codeBlock}>
           <code>sudo nano /etc/nginx/sites-available/skidz-next</code>
         </pre>
-
-        <p>Add the following configuration to handle Next.js and phpMyAdmin:</p>
+        <p>Add the following configuration:</p>
         <pre className={styles.codeBlock}>
-          <code>
-            {`server {
+          <code>{`server {
     listen 80;
 
     location / {
@@ -94,7 +104,13 @@ sudo apt install phpmyadmin`}
             try_files $uri $uri/ /phpmyadmin/index.php?$args;
         }
     }
-}`}
+}`}</code>
+        </pre>
+        <p>Enable the site:</p>
+        <pre className={styles.codeBlock}>
+          <code>
+            sudo ln -s /etc/nginx/sites-available/skidz-next
+            /etc/nginx/sites-enabled/
           </code>
         </pre>
       </div>
@@ -109,32 +125,30 @@ sudo apt install phpmyadmin`}
       <div className={styles.stepSection}>
         <h2>8. Build and Deploy the Next.js App</h2>
         <pre className={styles.codeBlock}>
-          <code>
-            {`cd /path/to/your/project-directory
-npm run build`}
-          </code>
+          <code>npm run build</code>
         </pre>
       </div>
 
       <div className={styles.stepSection}>
         <h2>9. Manage Services</h2>
+        <p>Stop Apache if it's running:</p>
         <pre className={styles.codeBlock}>
-          <code>
-            {`sudo systemctl stop apache2  // If Apache is running
-sudo systemctl restart nginx`}
-          </code>
+          <code>sudo systemctl stop apache2</code>
+        </pre>
+        <p>Restart Nginx:</p>
+        <pre className={styles.codeBlock}>
+          <code>sudo systemctl restart nginx</code>
         </pre>
       </div>
 
       <div className={styles.stepSection}>
         <h2>10. Install pm2 and Start the Next.js Server</h2>
         <pre className={styles.codeBlock}>
-          <code>
-            {`sudo npm install pm2 -g
-pm2 start npm --name "next-server" -- start`}
-          </code>
+          <code>sudo npm install pm2 -g</code>
+          <br />
+          <code>pm2 start npm --name "next-server" -- start</code>
         </pre>
       </div>
     </div>
   );
-};
+}
