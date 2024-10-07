@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Documentation.module.css';
 
-const ServerSetupInstructions = () => {
+export default function Home() {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Next.js Server Setup in AWS</h1>
@@ -11,14 +11,14 @@ const ServerSetupInstructions = () => {
 
       <div className={styles.stepSection}>
         <h2>1. Update the System</h2>
-        <pre>
+        <pre className={styles.codeBlock}>
           <code>sudo apt update</code>
         </pre>
       </div>
 
       <div className={styles.stepSection}>
         <h2>2. Install Required Dependencies</h2>
-        <pre>
+        <pre className={styles.codeBlock}>
           <code>
             {`sudo apt install build-essential
 sudo apt install nginx`}
@@ -28,7 +28,7 @@ sudo apt install nginx`}
 
       <div className={styles.stepSection}>
         <h2>3. Install Node.js</h2>
-        <pre>
+        <pre className={styles.codeBlock}>
           <code>
             {`sudo apt install nodejs
 sudo apt install npm`}
@@ -38,7 +38,7 @@ sudo apt install npm`}
 
       <div className={styles.stepSection}>
         <h2>4. Create Next.js Project</h2>
-        <pre>
+        <pre className={styles.codeBlock}>
           <code>
             {`cd /path/to/your/project-directory
 npx create-next-app@latest`}
@@ -48,7 +48,7 @@ npx create-next-app@latest`}
 
       <div className={styles.stepSection}>
         <h2>5. Install MySQL and phpMyAdmin</h2>
-        <pre>
+        <pre className={styles.codeBlock}>
           <code>
             {`sudo apt install mysql-server
 sudo mysql_secure_installation  // Set root password as root
@@ -60,12 +60,12 @@ sudo apt install phpmyadmin`}
       <div className={styles.stepSection}>
         <h2>6. Configure Nginx</h2>
         <p>Create a new configuration file for your site:</p>
-        <pre>
+        <pre className={styles.codeBlock}>
           <code>sudo nano /etc/nginx/sites-available/skidz-next</code>
         </pre>
 
         <p>Add the following configuration to handle Next.js and phpMyAdmin:</p>
-        <pre>
+        <pre className={styles.codeBlock}>
           <code>
             {`server {
     listen 80;
@@ -101,14 +101,14 @@ sudo apt install phpmyadmin`}
 
       <div className={styles.stepSection}>
         <h2>7. Set Correct Permissions for phpMyAdmin</h2>
-        <pre>
+        <pre className={styles.codeBlock}>
           <code>sudo chown -R www-data:www-data /usr/share/phpmyadmin</code>
         </pre>
       </div>
 
       <div className={styles.stepSection}>
         <h2>8. Build and Deploy the Next.js App</h2>
-        <pre>
+        <pre className={styles.codeBlock}>
           <code>
             {`cd /path/to/your/project-directory
 npm run build`}
@@ -118,7 +118,7 @@ npm run build`}
 
       <div className={styles.stepSection}>
         <h2>9. Manage Services</h2>
-        <pre>
+        <pre className={styles.codeBlock}>
           <code>
             {`sudo systemctl stop apache2  // If Apache is running
 sudo systemctl restart nginx`}
@@ -128,7 +128,7 @@ sudo systemctl restart nginx`}
 
       <div className={styles.stepSection}>
         <h2>10. Install pm2 and Start the Next.js Server</h2>
-        <pre>
+        <pre className={styles.codeBlock}>
           <code>
             {`sudo npm install pm2 -g
 pm2 start npm --name "next-server" -- start`}
@@ -138,5 +138,3 @@ pm2 start npm --name "next-server" -- start`}
     </div>
   );
 };
-
-export default ServerSetupInstructions;

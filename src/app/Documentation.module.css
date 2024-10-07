@@ -32,7 +32,7 @@
     margin-bottom: 10px;
   }
   
-  pre {
+  .codeBlock {
     background-color: #2e3b4e;
     color: #fff;
     padding: 15px;
