@@ -2,105 +2,97 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-          <li>testing changes 1</li>
-          <li>testing changes 2</li>
-          <li>testing changes 3</li>
-          <li>testing changes 4</li>
-          <li>testing changes 5</li>
-        </ol>
+    <div style={{ padding: '20px', maxWidth: '800px', margin: 'auto' }}>
+      <h1>Next.js Server Setup in AWS (with MySQL and phpMyAdmin)</h1>
+      
+      <h2>Step-by-Step Instructions:</h2>
+      
+      <h3>1. Update the System</h3>
+      <pre><code>sudo apt update</code></pre>
+      
+      <h3>2. Install Required Dependencies</h3>
+      <p>Install essential build tools:</p>
+      <pre><code>sudo apt install build-essential</code></pre>
+      <p>Install Nginx (for reverse proxy):</p>
+      <pre><code>sudo apt install nginx</code></pre>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      <h3>3. Install Node.js</h3>
+      <p>Install Node.js:</p>
+      <pre><code>sudo apt install nodejs<br />sudo apt install npm</code></pre>
+
+      <h3>4. Create Next.js Project</h3>
+      <p>Navigate to the directory where you want to create the project:</p>
+      <pre><code>cd /path/to/your/project-directory</code></pre>
+      <p>Create a new Next.js app:</p>
+      <pre><code>npx create-next-app@latest</code></pre>
+      
+      <h3>5. Install MySQL and phpMyAdmin</h3>
+      <p>Install MySQL server:</p>
+      <pre><code>sudo apt install mysql-server</code></pre>
+      <p>Secure MySQL installation and set root password:</p>
+      <pre><code>sudo mysql_secure_installation</code></pre>
+      <p>Install phpMyAdmin:</p>
+      <pre><code>sudo apt install phpmyadmin</code></pre>
+
+      <h3>6. Configure Nginx</h3>
+      <p>Create a new configuration file for your site:</p>
+      <pre><code>sudo nano /etc/nginx/sites-available/skidz-next</code></pre>
+      <p>Add the following configuration:</p>
+      <pre>
+        <code>{`
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    location /phpmyadmin {
+        root /usr/share;
+        index index.php index.html index.htm;
+
+        location ~ ^/phpmyadmin/(.*\.php)$ {
+            fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+            fastcgi_index index.php;
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        }
+
+        location ~ /phpmyadmin/(.*) {
+            try_files $uri $uri/ /phpmyadmin/index.php?$args;
+        }
+    }
+}
+        `}</code>
+      </pre>
+      <p>Enable the site:</p>
+      <pre><code>sudo ln -s /etc/nginx/sites-available/skidz-next /etc/nginx/sites-enabled/</code></pre>
+
+      <h3>7. Set Correct Permissions for phpMyAdmin</h3>
+      <pre><code>sudo chown -R www-data:www-data /usr/share/phpmyadmin</code></pre>
+
+      <h3>8. Build and Deploy the Next.js App</h3>
+      <pre><code>npm run build</code></pre>
+
+      <h3>9. Manage Services</h3>
+      <p>Stop Apache if it's running (it can conflict with Nginx):</p>
+      <pre><code>sudo systemctl stop apache2</code></pre>
+      <p>Restart Nginx:</p>
+      <pre><code>sudo systemctl restart nginx</code></pre>
+
+      <h3>10. Install pm2 and Start the Next.js Server</h3>
+      <pre><code>sudo npm install pm2 -g</code></pre>
+      <p>Start the Next.js server using pm2:</p>
+      <pre><code>pm2 start npm --name "next-server" -- start</code></pre>
+
+      <p><strong>These steps will ensure your Next.js app runs smoothly on an AWS instance with MySQL and phpMyAdmin, and Nginx acts as a reverse proxy.</strong></p>
     </div>
   );
-}
+};
+
+
